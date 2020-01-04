@@ -41,10 +41,6 @@ func main() {
 				} else {
 					fmt.Printf("-> Found 1 entry\n\tK: %s -> V: %s\n", key, value)
 				}
-			// case "3":
-			// 	for key, value := range data {
-			// 		fmt.Printf("\tK: %s -> V: %s\n", key, value)
-			// 	}
 			default:
 				fmt.Printf("You entered: %s\n", cmd)
 				fmt.Println("Ok")
