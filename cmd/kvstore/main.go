@@ -9,17 +9,23 @@ import (
 	"github.com/abd4lla/kvstore/internal/keystore"
 )
 
+const (
+	MENU_TXT = "(1) Add/Set Key\n(2) Get/Find Value\n(h) Print help menu\n(q) Exit\nEnter choice (e.g. 1 for ADD): "
+)
+
 var (
 	ks *keystore.KeyStore
 )
 
 func main() {
-	fmt.Println("Starting KVStore")
+	fmt.Println("KV-Store 0.01")
+	fmt.Println("Starting in shell mode\n\n")
 	ks = keystore.NewKeyStore()
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("\n1) Add/Set Key.\n2) Get/Find Value.\n3) List all.\nEnter choice (e.g. 1 for ADD): ")
+		fmt.Println(MENU_TXT)
 		for {
+			fmt.Print("> ")
 			cmd, _ := reader.ReadString('\n')
 			cmd = strings.Replace(cmd, "\n", "", -1)
 			switch cmd {
@@ -41,12 +47,15 @@ func main() {
 				} else {
 					fmt.Printf("-> Found 1 entry\n\tK: %s -> V: %s\n", key, value)
 				}
+			case "h":
+				fmt.Println(MENU_TXT)
+			case "q":
+				os.Exit(0)
 			default:
 				fmt.Printf("You entered: %s\n", cmd)
 				fmt.Println("Ok")
 			}
-			fmt.Println("************************")
-			fmt.Print("1) Add/Set Key.\n2) Get/Find Value.\n3) List all.\nEnter choice (e.g. 1 for ADD): ")
+			// fmt.Println("************************")
 		}
 	}
 }
