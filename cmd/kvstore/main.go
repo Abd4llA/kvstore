@@ -14,12 +14,11 @@ var (
 )
 
 func main() {
-	fmt.Println("RegisterServer :: Starting")
-	fmt.Println("Welcome to RegisterServer")
+	fmt.Println("Starting KVStore")
 	ks = keystore.NewKeyStore()
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("1) Add/Set Key.\n2) Get/Find Value.\n3) List all.\nEnter choice (e.g. 1 for ADD): ")
+		fmt.Print("\n1) Add/Set Key.\n2) Get/Find Value.\n3) List all.\nEnter choice (e.g. 1 for ADD): ")
 		for {
 			cmd, _ := reader.ReadString('\n')
 			cmd = strings.Replace(cmd, "\n", "", -1)
@@ -42,10 +41,6 @@ func main() {
 				} else {
 					fmt.Printf("-> Found 1 entry\n\tK: %s -> V: %s\n", key, value)
 				}
-			// case "3":
-			// 	for key, value := range data {
-			// 		fmt.Printf("\tK: %s -> V: %s\n", key, value)
-			// 	}
 			default:
 				fmt.Printf("You entered: %s\n", cmd)
 				fmt.Println("Ok")
