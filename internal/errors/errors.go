@@ -5,11 +5,11 @@ import (
 )
 
 const (
-	EMPTYKEYCODE   = 100
-	EMPTYVALUECODE = 101
+	EMPTY_KEY_CODE   = 100
+	EMPTY_VALUE_CODE = 101
 
-	EMPTYKEYMSG   = "Empty key"
-	EMPTYVALUEMSG = "Empty value"
+	EMPTY_KEY_MSG   = "Empty key"
+	EMPTY_VALUE_MSG = "Empty value"
 )
 
 type KVSError struct {
