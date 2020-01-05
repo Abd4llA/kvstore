@@ -30,8 +30,10 @@ func TestAdd(t *testing.T) {
 		expected error
 	}{
 		{"Add key and value", "k1", "v1", nil},
-		{"Add empty key and value", "", "v2", errors.New(errors.EMPTY_KEY_MSG, errors.EMPTY_KEY_CODE)},
-		{"Add key and empty value", "k3", "", errors.New(errors.EMPTY_VALUE_MSG, errors.EMPTY_VALUE_CODE)},
+		{"Add empty key and value", "", "v2", errors.New(errors.EMPTY_KEY_MSG,
+			errors.EMPTY_KEY_CODE)},
+		{"Add key and empty value", "k3", "", errors.New(errors.EMPTY_VALUE_MSG,
+			errors.EMPTY_VALUE_CODE)},
 	}
 
 	for _, tc := range cases {
@@ -54,15 +56,33 @@ func TestAdd(t *testing.T) {
 	}
 }
 
-//func TestGet(t *testing.T) {
-//	k2 := "k2"
-//	v2 := "v2"
-//	data[k2] = v2
-//	val, error := Get(k2)
-//	if val != v2 {
-//		t.Errorf("Unexpected value %v for key %v, expected %v", val, k2, v2)
-//	}
-//	if error != nil {
-//		t.Errorf("Unexpected error %v when getting key %v", error, k2)
-//	}
-//}
+func TestGet(t *testing.T) {
+	cases := [] struct {
+		name	string
+		key		string
+		expectedValue	string
+		expectedError	error
+	}{
+		{"Get a previously added key value", "k1", "v1", nil},
+		{"Get a value for an empty key", "", "", errors.New(errors.EMPTY_KEY_MSG,
+			errors.EMPTY_KEY_CODE)},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.key!= "" {
+				addError := Add(tc.key, tc.expectedValue)
+				if addError != nil {
+					t.Errorf("Unexpected error was thrown: %v\n", addError)
+				}
+			}
+			value, getError := Get(tc.key)
+			if getError != tc.expectedError {
+				t.Errorf("Unexpected error was thrown: %v\nExpected error: %v", getError, tc.expectedError)
+			}
+			if tc.expectedValue != value {
+				t.Errorf("Failed to get the value: %s for the key: %s", tc.expectedValue, tc.key)
+			}
+		})
+	}
+}
