@@ -23,3 +23,11 @@ func Get(key string) (string, error) {
 	}
 	return data[key], nil
 }
+
+func Delete(key string) error {
+	if key == "" {
+		return errors.New(errors.EMPTY_KEY_MSG, errors.EMPTY_KEY_CODE)
+	}
+	delete(data, key)
+	return nil
+}

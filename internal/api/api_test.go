@@ -86,3 +86,29 @@ func TestGet(t *testing.T) {
 		})
 	}
 }
+
+func TestDelete(t *testing.T) {
+	cases := [] struct{
+		name	string
+		key 	string
+		expectedError	error
+	}{
+		{"Delete a previously set key value pair", "k1", nil},
+		{"Delete a key value for an empty key", "", errors.New(errors.EMPTY_KEY_MSG,
+			errors.EMPTY_KEY_CODE)},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.key!= "" {
+				addError := Set(tc.key, "Any")
+				if addError != nil {
+					t.Errorf("Unexpected error was thrown: %v\n", addError)
+				}
+			}
+			deleteError := Delete(tc.key)
+			if deleteError != tc.expectedError {
+				t.Errorf("Unexpected error was thrown: %v\nExpected error: %v", deleteError, tc.expectedError)
+			}
+		})
+	}
+}
