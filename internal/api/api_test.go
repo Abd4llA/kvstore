@@ -1,7 +1,7 @@
 package api
 
 import (
-	"kvstore/internal/errors"
+	"github.com/kvstore/internal/errors"
 	"os"
 	"testing"
 )

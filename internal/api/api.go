@@ -1,6 +1,6 @@
 package api
 
-import "kvstore/internal/errors"
+import "github.com/kvstore/internal/errors"
 
 var (
 	data = make(map[string]string)
