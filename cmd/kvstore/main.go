@@ -19,7 +19,7 @@ var (
 
 func main() {
 	fmt.Println("KV-Store 0.01")
-	fmt.Println("Starting in shell mode\n\n")
+	fmt.Print("Starting in shell mode\n\n\n")
 	ks = keystore.NewKeyStore()
 	for {
 		reader := bufio.NewReader(os.Stdin)
