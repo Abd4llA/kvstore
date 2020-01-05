@@ -6,7 +6,7 @@ var (
 	data = make(map[string]string)
 )
 
-func Add(key, value string) error {
+func Set(key, value string) error {
 	if key == "" {
 		return errors.New(errors.EMPTY_KEY_MSG, errors.EMPTY_KEY_CODE)
 	}

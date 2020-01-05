@@ -29,16 +29,16 @@ func TestAdd(t *testing.T) {
 		value    string
 		expected error
 	}{
-		{"Add key and value", "k1", "v1", nil},
-		{"Add empty key and value", "", "v2", errors.New(errors.EMPTY_KEY_MSG,
+		{"Set key and value", "k1", "v1", nil},
+		{"Set empty key and value", "", "v2", errors.New(errors.EMPTY_KEY_MSG,
 			errors.EMPTY_KEY_CODE)},
-		{"Add key and empty value", "k3", "", errors.New(errors.EMPTY_VALUE_MSG,
+		{"Set key and empty value", "k3", "", errors.New(errors.EMPTY_VALUE_MSG,
 			errors.EMPTY_VALUE_CODE)},
 	}
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			error := Add(tc.key, tc.value)
+			error := Set(tc.key, tc.value)
 			if error != nil {
 				if error != tc.expected {
 					t.Errorf("Unexpected error %v when adding %v for key %v", error, tc.value, tc.key)
@@ -71,7 +71,7 @@ func TestGet(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			if tc.key!= "" {
-				addError := Add(tc.key, tc.expectedValue)
+				addError := Set(tc.key, tc.expectedValue)
 				if addError != nil {
 					t.Errorf("Unexpected error was thrown: %v\n", addError)
 				}
