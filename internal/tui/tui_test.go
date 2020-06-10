@@ -1,7 +1,6 @@
 package tui
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"io"
@@ -15,68 +14,13 @@ const (
 	FAILED    = "\u2717"
 )
 
-type Action func()
-
-type Entry struct {
-	Name      string
-	HelpText  string
-	ActionKey string
-	Callback  Action
-}
-
-type Menu struct {
-	entries map[string]*Entry
-	r io.Reader
-	w io.Writer
-}
-
-func NewMenu(r io.Reader, w io.Writer) *Menu {
-	m := Menu {
-		make(map[string]*Entry),
-		r,
-		w,
-	}
-	return &m
-}
-
-func (m *Menu) Add(name string, text string, actionKey string, action Action) error {
-	m.entries[actionKey] = & Entry{
-		Name: name,
-		HelpText: text,
-		ActionKey: actionKey,
-		Callback: action,
-	}
-	//TODO Validate input and return error if the key is not unique
-	return nil
-}
-
-func (m *Menu) Run(){
-	//TODO Panic if we don't have any entries
-	w, r := m.w, m.r
-	for _ , e := range m.entries {
-		fmt.Fprintf(w, "(%s) %s\n", e.ActionKey, e.HelpText)
-	}
-	fmt.Fprintln(w, "Enter choice:")
-	for {
-		fmt.Fprint(w)
-		r := bufio.NewReader(r)
-		a, _ := r.ReadString('\n')
-		e, ok := m.entries[strings.TrimSpace(a)]
-		if ! ok {
-			fmt.Fprintln(w, "Invalid choice.")
-			continue
-		}
-		e.Callback()
-	}
-}
-
 func TestTUI(t *testing.T) {
 	t.Log("Given a TUI menu")
 	{
 		b := new(bytes.Buffer)
 		r,w := io.Pipe()
 
-		// In normal mode, it should take stdin and stdout
+		// When used in production, it should take stdin and stdout
 		menu := NewMenu(r, b)
 
 		t.Logf("\tTest 0:\tWhen adding a new entry")
