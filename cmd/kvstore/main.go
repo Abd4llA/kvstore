@@ -3,11 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/abd4lla/kvstore/internal/tui"
+	"github.com/devguyio/kvstore/internal/tui"
 	"os"
 	"strings"
 
-	"github.com/abd4lla/kvstore/internal/keystore"
+	"github.com/devguyio/kvstore/internal/keystore"
 )
 
 const (
