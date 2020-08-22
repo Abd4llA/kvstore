@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/devguyio/kvstore/internal/tui"
 	"os"
 	"strings"
 
 	"github.com/devguyio/kvstore/internal/keystore"
+	"github.com/devguyio/kvstore/internal/logging"
+	"github.com/devguyio/kvstore/internal/tui"
 )
 
 const (
@@ -16,16 +17,18 @@ const (
 )
 
 var (
-	ks *keystore.KeyStore
+	ks     *keystore.KeyStore
+	logger *logging.Logger
 )
 
 func main() {
-	fmt.Println("KV-Store 0.01")
-	fmt.Print("Starting in shell mode\n\n\n")
+	logger = logging.NewLogger(0, 0, 0, 0, 0, true)
+	logger.Info.Println("KV-Store 0.01")
+	logger.Info.Print("Starting in shell mode\n\n\n")
 	ks = keystore.NewKeyStore()
 	reader := bufio.NewReader(os.Stdin)
 	m := tui.NewMenu(os.Stdin, os.Stdout)
-	m.Add("add_key", "Add/Set Key", "1", func(){
+	m.Add("add_key", "Add/Set Key", "1", func() {
 		fmt.Print("Enter key: ")
 		key, _ := reader.ReadString('\n')
 		key = strings.Replace(key, "\n", "", -1)
@@ -45,7 +48,7 @@ func main() {
 			fmt.Printf("-> Found 1 entry\n\tK: %s -> V: %s\n", key, value)
 		}
 	})
-	m.Add("quit", "Quit", "q", func(){
+	m.Add("quit", "Quit", "q", func() {
 		os.Exit(0)
 	})
 	m.Run()
