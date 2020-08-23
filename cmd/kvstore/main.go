@@ -22,7 +22,8 @@ var (
 )
 
 func main() {
-	logger = logging.NewLogger(0, 0, 0, 0, 0, true)
+	logger = logging.DefaultLogger()
+	logger.ConfigureLogger(0, 0, 0, 0, 0, true)
 	logger.Info.Println("KV-Store 0.01")
 	logger.Info.Print("Starting in shell mode\n\n\n")
 	ks = keystore.NewKeyStore()
