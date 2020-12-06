@@ -1,6 +1,10 @@
 package keystore
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/devguyio/kvstore/internal/logging"
+)
 
 // KeyStore is a struct representing an in-memory key-value store
 type KeyStore struct {
@@ -30,6 +34,7 @@ func (ks *KeyStore) Del(k string) error {
 	if _, ok := ks.data[k]; !ok {
 		return errors.New("Invalid key")
 	}
+	logging.DefaultLogger().Debug.Printf("deleting key %s with value %s", k, ks.data[k])
 	delete(ks.data, k)
 	return nil
 }
